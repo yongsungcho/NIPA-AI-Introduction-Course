@@ -1,2 +1,3 @@
 # NIPA-AI-Introduction-Course
-2021 NIPA AI Online Course
+Just a simple Python and AI studying note...
+Nothing Special. As Usual.
