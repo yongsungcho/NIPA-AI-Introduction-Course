@@ -1,0 +1,57 @@
+21.10.13
+======================================================================================================================================
+
+[01] Series 데이터
+1. Pandas?
+  - 파이썬 라이브러리
+  - 구조화된 데이터를 효과적으로 처리하고 저장
+  - Array 계산에 특화된 NumPy를 기반으로 설계
+  - 행과 열을 가진 데이터, 대용량 데이터에 효과적 (엑셀과 비슷한 데이터 베이스 형태)
+
+2. Series
+  - Numpy의 array가 보강된 형태
+  - Data & Index를 가지고 있음
+      import pandas as pd
+      data = pd.Series([1, 2, 3, 4])
+      print(data)
+  - Series는 값(values)을 ndarray 형태로 가지고 있음
+      import pandas as pd
+      data = pd.Series([1, 2, 3, 4])
+      print(data)
+      # 0 1 (왼쪽 = index, 오른쪽 = data)
+      # 1 2
+      # 2 3
+      # 3 4
+      # dtype: int64
+      print(type(data)) # <class 'pandas.core.series.Series'>
+      print(data.values) # [1 2 3 4]
+      print(type(data.values)) # <class 'numpy.ndarray'>
+  - dtype 인자로 데이터 타입을 지정할 수 있음
+      data = pd.Series([1, 2, 3, 4], dtype = "float")
+      print(data.dtype) # float64
+      # 0 1
+      # 1 2
+      # 3 4
+      # dtype: float64
+  - 인덱스를 지정할 수 있고, 인덱스로 접근 가능
+      data = pd.Series([1, 2, 3, 4], index = ['a', 'b', 'c', 'd'])
+      data['c'] = 5 # 인덱스로 접근하여 요소 변경 가능
+      # a 1
+      # b 2
+      # c 5
+      # d 4
+      # dtype: int64
+  - Dictionary를 활용하여 Series 생성 가능
+      population_dict = {
+        'china': 141500,
+        'japan': 12718,
+        'korea': 5180,
+        'usa': 32676
+      }
+      population = pd.Series(population_dict)
+      => 인덱스 = 국가명 / 데이터 = 인구수 / dtype = int64
+
+======================================================================================================================================
+
+[02] 데이터프레임
+1. Dataframe: 여러 개의 Series가 모여서 행과 열을 이룬 데이터
