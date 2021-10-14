@@ -130,7 +130,6 @@
                     [ 9 10 11 12]]
         print(x[[0, 2]]) # [[ 1 2 3 4]
                             [ 9 10 11 12]]
-                            
     - Indexing x Slicing: 원하는 요소를 지정하기 위해 Indexing과 Slicing을 적절히 조합하여 사용 가능
         x = np.arange(1, 13, 1).reshape(3, 4)
         print(x) # [[ 1 2 3 4]
