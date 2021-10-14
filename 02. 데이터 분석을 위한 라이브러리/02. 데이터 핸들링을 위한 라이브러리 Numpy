@@ -110,9 +110,35 @@
       print(x[1:2, :2:3]) # [[5]]
       print(x[1:, :2] # [[ 5 6]
                          [ 9 10]]
-    - Boolean indexing
-      Boolean indexing: 배열의 각 요소의 선택 여부를 Boolean mask를 이용하여 지정하는 방식
+    - Boolean indexing: 배열의 각 요소의 선택 여부를 Boolean mask를 이용하여 지정하는 방식
         x = np.arange(7) # Boolean mask? True, False로 구성된 mask array
         print(x) # [0 1 2 3 4 5 6]
-        print(x < 3) [True True True False False False False]
-        print(x > 7) [False False False False False False False]
+        print(x < 3) # [True True True False False False False]
+        print(x > 7) # [False False False False False False False]
+      
+        x = np.arange(7) # Boolean mask의 True 요소에 해당하는 index만을 조회
+        print(x[x < 3]) # [0 1 2]
+        print(x[x % 2 == 0]) # [0 2 4 6]
+    - Fancy indexing: 배열의 각 요소 선택을 Index 배열을 전달하여 지정하는 방식
+        x = np.arange(7)
+        print(x) # [0 1 2 3 4 5 6]
+        print(x[[1, 3, 5]]) # [1 3 5]
+        
+        x = np.arange(1, 13, 1).reshape(3, 4)
+        print(x) # [[ 1 2 3 4]
+                    [ 5 6 7 8]
+                    [ 9 10 11 12]]
+        print(x[[0, 2]]) # [[ 1 2 3 4]
+                            [ 9 10 11 12]]
+                            
+    - Indexing x Slicing: 원하는 요소를 지정하기 위해 Indexing과 Slicing을 적절히 조합하여 사용 가능
+        x = np.arange(1, 13, 1).reshape(3, 4)
+        print(x) # [[ 1 2 3 4]
+                    [ 5 6 7 8]
+                    [ 9 10 11 12]]
+        print(x[1:2, 2]) # [7]
+        print(x[[0,2], 2]) # [ 3 11]
+        print(x[[0,2], :2]) # [[ 1 2]
+                               [ 9 10]]
+                                     
+======================================================================================================================================
