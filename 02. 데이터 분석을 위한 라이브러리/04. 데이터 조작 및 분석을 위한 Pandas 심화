@@ -1,0 +1,82 @@
+21.10.15
+======================================================================================================================================
+
+[01] 데이터프레임 정렬하기
+1. Index 값 기준으로 정렬하기
+  - axis = 0: 행 인덱스 기준 정렬(Default 오름차순)
+      df = df.sort_index(axis = 0)
+  - axis = 1: 열 인덱스 기준 내림차순 정렬
+      df.sort_index(axis = 1, ascending = False) # ascending = True: 오름차순, False: 내림차순
+
+2. Column 값 기준으로 정렬하기
+  - col1 컬럼 기준 정렬(Default 오름차순)
+      df.sort_values('col1', ascending = True)
+  - col1 컬럼 기준 내림차순 정렬
+      df.sort_values('col1', ascending = False)
+  - col2 컬럼 기준 오름차순 정렬 후, col1 컬럼 기준 내림차순 정렬
+      df.sort_values(['col2', 'col1'], ascending = [True, False])
+      
+======================================================================================================================================
+
+[02] 데이터프레임 분석용 함수
+1. 집계함수 - Count
+  - count 메서드 활용하여 데이터 개수 확인 가능 (Default: NaN값 제외)
+      data = {
+        'korean': [50, 60, 70],
+        'math': [10, np.nan, 40]
+      }
+      df = pd.DataFrame(data, index = ['a', 'b', 'c'])
+      df.count(axis = 0) # 열 기준
+      df.count(axis = 1) # 행 기준
+
+2. 집계함수 - max, min
+  - max, min 메서드 활용하여 최대, 최소값 확인 가능 (Default: 열 기준, NaN값 제외)
+      data = {
+        'korean': [50, 60, 70],
+        'math': [10, np.nan, 40]
+      }
+      df = pd.DataFrame(data, index = ['a', 'b', 'c'])
+      df.max() # 최댓값
+      df.min() # 최솟값
+      
+3. 집계함수 - sum, mean
+  - sum, mean 메서드 활용하여 합계 및 평균 계산 (Default: 열 기준, NaN값 제외)
+      data = {
+        'korean': [50, 60, 70],
+        'math': [10, np.nan, 40]
+      }
+      df = pd.DataFrame(data, index = ['a', 'b', 'c'])
+      df.sum() # 합계
+      df.mean() # 평균
+  - axis, skipna 인자 활용하여 합계 및 평균 계산 (행 기준, NaN값 포함 시)
+      data = {
+        'korean': [50, 60, 70],
+        'math': [10, np.nan, 40]
+      }
+      df = pd.DataFrame(data, index = ['a', 'b', 'c'])
+      df.axis(axis = 1) # 합계
+      df.mean(axis = 1, skipna = False) # 평균 (skipna = True일 경우, 60 + NaN => 60)
+  - NaN값이 존재하는 column의 평균 구하여 NaN값 대체
+      B_avg = df['math'].mean()
+      print(B_avg) # 25
+      df['math'] = df['math'].fillna(B_avg) # NaN값 대체
+      df.mean(axis = 1, skipna = False) # 평균
+           
+======================================================================================================================================
+
+[03] 그룹으로 묶기
+1. group by
+  - 간단한 집계를 넘어서서 조건부로 집계하고 싶은 경우
+      df = pd.DataFrame({
+      'data1': range(6),
+      'data2': [4,4,6,0,6,1],
+      'key': ['A','B','C','A','B','C']
+      })
+      df.groupby('key').sum() # 'A', 'B', 'C'에 따라서 groupby
+      df.groupby(['key', 'data1']).sum() # 'A' 안에 0, 3으로 groupby
+      
+2. aggregate(= 합계)
+  - groupby를 통해서 집계를 한번에 계산하는 방법
+      df.groupby('key').aggregate(['min', np.median, max]) 
+      df.groupby('key').aggregate({'data1': 'min', 'data2': np.sum})
+                 
